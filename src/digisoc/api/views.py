@@ -4,6 +4,7 @@ from django.http import HttpResponse, HttpResponseBadRequest
 import json
 import crime_methods
 import outcome_methods
+import food_methods
 
 def crimes(request):
 
@@ -38,6 +39,32 @@ def crimes(request):
     except Exception as e:
         return HttpResponseBadRequest( "Something went wrong. Blame Greenwood: %s" % e )
 
+
+def food_ratings(request):
+
+    #
+    # Prelim
+    if request.method != 'GET':
+        return HttpResponseBadRequest("GET calls only")
+
+    params = request.GET
+
+    req_params = ["ne", "sw"]
+    for req_param in req_params:
+        if req_param not in params:
+            return HttpResponseBadRequest("missing param: %s" %(req_param))
+
+    #
+    # Grab params
+    ne = params['ne']
+    sw = params['sw']
+
+    try:
+        establishments_list = food_methods.retrieve_establishment_ratings(ne, sw)
+        establishment_data = {'establishments': establishments_list}
+    	return return_data(request, establishment_data)
+    except Exception as e:
+        return HttpResponseBadRequest( "Something went wrong. Blame Greenwood: %s" % e )
 
 
 def return_data(request, data_dict):
