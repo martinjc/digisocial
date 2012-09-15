@@ -1,6 +1,7 @@
 from django.conf.urls.defaults import patterns, include, url
+from digisoc.api.views import *
 
-urlpatterns = patterns('',
+urlpatterns = patterns('api.views',
 
     """
     Request crime data for area, given by north east and south west coordinates.
@@ -44,5 +45,5 @@ urlpatterns = patterns('',
     /crimes/?ne=X.XXXXXXX&sw=Y.YYYYYYY
 
     """
-    url(r'crimes/?$', 'digisoc.api.views.crimes'),
+    url(r'crimes/', 'digisoc.api.crimes'),
 )

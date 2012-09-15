@@ -5,6 +5,6 @@ from django.conf.urls.defaults import patterns, include, url
 # admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^api/', include( 'api.urls' ) ),
+    url(r'^api/', include( 'digisoc.api.urls' ) ),
     url(r'^$', 'digisoc.frontend.views.index'),
 )
