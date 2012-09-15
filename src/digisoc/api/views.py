@@ -35,8 +35,8 @@ def crimes(request):
     #except Exception:
     #    return HttpResponseBadRequest( "Something went wrong. Blame Greenwood." )
 
-    crime_data = {'crimes': [{'point': {'lat': 51.482, 'lng': -3.186}, 'value': 4}, {'point': {'lat': 51.482, 'lng': -3.186}, 'value': 4}, {'point': {'lat': 51.482, 'lng': -3.186}, 'value': 4}]}
-    return_data(request, crime_data)
+    crime_data = {'crimes': [{'crime': {'point': {'lat': 51.482, 'lng': -3.186}, 'value': 4}}, {'crime': {'point': {'lat': 51.382, 'lng': -3.176}, 'value': 2}}, {'crime': {'point': {'lat': 51.282, 'lng': -3.146}, 'value': 6}}]}
+    return return_data(request, crime_data)
 
 def return_data(request, data_dict):
 
