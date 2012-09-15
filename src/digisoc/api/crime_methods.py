@@ -35,13 +35,13 @@ def getCrimes(northest, eastest, southest, westest, startYear, startMonth, endYe
 	return crimeList
 	
 def retrieveCrimes(ne, sw, sy, sm, ey, em):
-	if sy == "":
+	if sy == None:
 		sy = 0
-	if sm == "":
+	if sm == None:
 		sm = 0
-	if ey == "":
+	if ey == None:
 		ey = 9999
-	if em == "":
+	if em == None:
 		em = 12
 	startYear = int(sy)
 	startMonth = int(sm)
