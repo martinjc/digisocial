@@ -1,6 +1,7 @@
-/*global google root_url static_url console*/
+/*global google root_url static_url console HeatmapOverlay*/
 
 var map;
+var heatmap;
 
 function roundNumber(rnum, rlength) {
     var newnumber = Math.round(rnum * Math.pow(10, rlength)) / Math.pow(10, rlength);
@@ -51,13 +52,29 @@ function validate(document) {
         var ne = bounds.getNorthEast();
         var sw = bounds.getSouthWest();
         console.log(map.getBounds());
-        var point_count = {};
+        var points = {};
+        var hmap_data = {};
         var url = root_url + '/api/crimes/?ne=' + ne.lat() + ',' + ne.lng() + '&sw=' + sw.lat() + ',' + sw.lng() + '&sy=' + sy + '&sm=' + sm + '&ey=' + ey + '&em=' + em;
         console.log(url);
         $.getJSON(url, {}, function(data) {
             var crimes = data.crimes;
             for(var i in crimes){
-                console.log(crimes[i].crime.point);
+                var lat = roundNumber(crimes[i].crime.point.lat, 5);
+                var lng = roundNumber(crimes[i].crime.point.lng, 5);
+                var point = lat + ',' + lng;
+                if (points[point] === undefined) {
+                    points[point] = 1;
+                } else {
+                    points[point] = points[point] + 1;
+                }
+            }
+            console.log(points);
+            for(var i in crimes) {
+                var lat = roundNumber(crimes[i].crime.point.lat, 5);
+                var lng = roundNumber(crimes[i].crime.point.lng, 5);
+                var p = lat + ',' + lng;
+                var count = points[p];
+                heatmap.addDataPoint(lat, lng, count);
             }
         });
     }
@@ -83,6 +100,13 @@ function DataMap(map_location) {
     }
 
     map.setCenter(initial_location);
+
+    heatmap = new HeatmapOverlay(map, {"radius":1, "visible":true, "opacity":60});
+    var testData={max: 6, data: [{lat: 51.466, lng:-3.18383, count: 4},{lat: 51.479, lng:-3.15653, count: 6},{lat: 51.482, lng:-3.16588, count: 1}]};
+
+    google.maps.event.addListener(map, "idle", function(){
+        heatmap.setDataSet(testData);
+    });
 }
 
 
