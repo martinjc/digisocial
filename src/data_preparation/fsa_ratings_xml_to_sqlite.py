@@ -1,3 +1,12 @@
+"""Translate an XML file of food hygene ratings for a given local authority
+to an SQL database. Values in the XML tree below a particular establishment 
+node are flattened into a database row.
+
+URLs for the dataset:
+    http://data.gov.uk/dataset/uk-food-hygiene-rating-data
+    http://ratings.food.gov.uk/open-data/en-GB
+"""
+
 from xml.dom.minidom import parse, parseString
 import csv 
 import sqlalchemy as alch
