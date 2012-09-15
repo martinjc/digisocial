@@ -47,10 +47,10 @@ def retrieveCrimes(ne, sw, sy, sm, ey, em):
 	startMonth = int(sm)
 	endYear = int(ey)
 	endMonth = int(em)
-	vertical1 = int((ne.split(",")[0]))
-	vertical2 = int((sw.split(",")[0]))
-	horizontal1 = int((ne.split(",")[1]))
-	horizontal2 = int((sw.split(",")[1]))
+	vertical1 = float((ne.split(",")[0]))
+	vertical2 = float((sw.split(",")[0]))
+	horizontal1 = float((ne.split(",")[1]))
+	horizontal2 = float((sw.split(",")[1]))
 	crimes = getCrimes(max(vertical1, vertical2), 
 					max(horizontal1, horizontal2),
 					min(vertical1, vertical2),
