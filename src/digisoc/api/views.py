@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseBadRequest
 
 import json
 import crime_methods
+import outcome_methods
 
 def crimes(request):
 
@@ -31,6 +32,8 @@ def crimes(request):
     try:
         crimeList = crime_methods.retrieveCrimes(ne, sw, startYear, startMonth, endYear, endMonth)
         crime_data = {'crimes': crimeList}
+        outcomeList = outcome_methods.retrieveOutcomes(ne, sw, startYear, startMonth, endYear, endMonth)
+        outcome_data = {'outcomes': outcomeList}
     	return return_data(request, crime_data)
     except Exception as e:
         return HttpResponseBadRequest( "Something went wrong. Blame Greenwood: %s" % e )
