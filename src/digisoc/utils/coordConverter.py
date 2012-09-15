@@ -1,5 +1,8 @@
 import math
 
+# Code adapted from the JavaScript version at http://www.movable-type.co.uk/scripts/latlong-gridref.html
+# No particular authority is claimed over any of the below code
+
 #####
 # Convert Ordnance Survey grid reference easting/northing coordinate to (OSGB36) latitude/longitude
 #
@@ -8,14 +11,14 @@ import math
 # returns: (latitude(float), longitude(float))(tuple) of grid reference
 #
 # EXAMPLE
-# input: convert(263591, 196792)
+# input: convertCoords(263591, 196792)
 # output: (51.614745 -3.964993)
 #####
 
 def toDeg(thingy):
 	return thingy * 180 / math.pi;
 
-def convert(easting, northing):
+def convertCoords(easting, northing):
 	E = easting
 	N = northing
 	
