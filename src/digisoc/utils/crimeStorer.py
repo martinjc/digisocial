@@ -54,7 +54,7 @@ def processFile(fileName, c):
 	csvFile.close()
 
 
-rootDir = "/Users/willwebberley/Desktop/data/"
+rootDir = "/Users/willwebberley/Desktop/crime_data/"
 
 con = sqlite3.connect(rootDir+"crime-data.db")
 cursor = con.cursor()
