@@ -32,7 +32,7 @@ def crimes(request):
     try:
         crimeList = crime_methods.retrieveCrimes(ne, sw, startYear, startMonth, endYear, endMonth)
         crime_data = {'crimes': crimeList}
-        outcomeList = outcome_methods.retrieveCrimes(ne, sw, startYear, startMonth, endYear, endMonth)
+        outcomeList = outcome_methods.retrieveOutcomes(ne, sw, startYear, startMonth, endYear, endMonth)
         outcome_data = {'outcomes': outcomeList}
     	return return_data(request, crime_data)
     except Exception as e:
