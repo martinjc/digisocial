@@ -10,6 +10,8 @@ urlpatterns = patterns('',
     #
     # ne - north east coordinate of bounding box
     # sw - south west coordinate of bounding box
+    # from - start date (optional)
+    # to - end date (optional)
     #
     # returns: json list of crimes within bounding box:
     #
@@ -42,7 +44,7 @@ urlpatterns = patterns('',
     #
     # usage:
     #
-    #  /crimes/?ne=X.XXXXXXX&sw=Y.YYYYYYY
+    #  /crimes/?ne=X.XXXXXXX&sw=Y.YYYYYYY&from=AAAAAAAA&to=BBBBBBBBBBB
 
     (r'crimes/$', crimes),
 )

@@ -1,7 +1,11 @@
 # Create your views here.
 from django.views.decorators.csrf import requires_csrf_token
-from django.views.generic.simple import direct_to_template
+from django.shortcuts import render_to_response
+from django.template import RequestContext
+from django.conf import settings
+
+ROOT_URL = getattr(settings, 'ROOT_URL', '')
 
 @requires_csrf_token
 def index(request):
-    return direct_to_template(request, template='index.html')
+    return render_to_response('index.html', {'root_url': ROOT_URL}, context_instance=RequestContext(request))

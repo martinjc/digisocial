@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+            <!-- Metadata -->
+            <meta charset="utf-8">
+            <title>{% block title %}DigiSocial Mapping Thing{% endblock %}</title>
+            <meta name="description" content="Mapping all of the data whether it's relevant or not">
+            <meta name="author" content="Martin Chorley">
+            <meta name="author" content="Will Webberley">
+            <meta name="author" content="Matt Williams">
+
+            <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+            <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+            <![endif]-->
+
+            <!-- Styles! -->
+            <link href="{{ STATIC_URL }}css/bootstrap.css" type="text/css" rel="stylesheet">
+            <link href="{{ STATIC_URL }}css/responsive.css" type="text/css" rel="stylesheet">
+
+            <!-- Icons! -->
+            <link rel="shortcut icon" type="image/x-icon" href="{{ STATIC_URL }}img/favicon.ico">
+            <link rel="apple-touch-icon" href="{{ STATIC_URL }}img/57x57.png">
+            <link rel="apple-touch-icon" sizes="72x72" href="{{ STATIC_URL }}img/72x72.png">
+            <link rel="apple-touch-icon" sizes="114x114" href="{{ STATIC_URL }}img/114x114.png">
+
+            {% block head %}
+            {% endblock %}
+
+    </head>
+
+
+    <body>
+
+        <header>
+        </header>
+        {{root_url}}
+
+
+        <footer>
+
+            <div class="container-fluid">
+                <small class="row-fluid">
+                    <p class="span4 offset4" style="text-align:center"><a href="#modal-about" data-toggle="modal">About</a>  *  <a href="#modal-privacy" data-toggle="modal">Privacy Policy</a>  *  <a href="#modal-contact" data-toggle="modal">Contact</a>  *  <a href="#modal-cookies" data-toggle="modal">Cookie Policy</a></p>
+                </small>
+            </div>
+        </footer>
+
+
+        <aside id="modal-about" class="modal hide fade">
+            <h2 class="modal-header">About<a href="#" class="close" data-dismiss="modal" >&times;</a></h2>
+            <p class="modal-body">
+                We really have little idea what this is doing here.
+                <br />
+                Created by <a href="https://twitter.com/intent/user?screen_name=martinjc">@martinjc</a>, <a href="https://twitter.com/intent/user?screen_name=voxmjw">@voxmjw</a> and <a href="https://twitter.com/intent/user?screen_name=flyingsparx">@flyingsparx</a> as part of the <a href="http://users.cs.cf.ac.uk/W.M.Webberley/digisocial/">DigiSocial Hackathon</a> at <a href="http://www.cf.ac.uk">Cardiff University</a> <a href="http://www.cs.cf.ac.uk">School of Computer Science & Informatics</a>, September 2012
+            </p>
+        </aside>
+        <!-- Javascript! -->
+        <!-- stuck all the way down here for performance -->
+        <script>
+            var root_url = '{{root_url|escapejs}}';
+            var static_url = '{{STATIC_URL|escapejs}}';
+        </script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    </body>
+
+</html>

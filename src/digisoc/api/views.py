@@ -27,6 +27,9 @@ def crimes(request):
     except Exception:
         return HttpResponseBadRequest("failed to parse params: %s, %s" % (ne_p, sw_p))
 
+
+    #
+    # NEED TO DEAL WITH DATES AS WELL...
     #
     # Here's the magic, needs completing:
     #try:
