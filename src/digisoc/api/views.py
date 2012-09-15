@@ -22,19 +22,20 @@ def crimes(request):
     # Grab params
     ne = params['ne']
     sw = params['sw']
-    startYear = params['sy']
-    startMonth = params['sm']
-    endYear = params['ey']
-    endMonth = params['em']
-    
+
+    startYear = params.get('sy', None)
+    startMonth = params.get('sm', None)
+    endYear = params.get('ey', None)
+    endMonth = params.get('em', None)
+
     try:
         crimeList = crime_methods.retrieveCrimes(ne, sw, startYear, startMonth, endYear, endMonth)
         crime_data = {'crimes': crimeList}
     	return return_data(request, crime_data)
-    except Exception:
-        return HttpResponseBadRequest( "Something went wrong. Blame Greenwood." )
+    except Exception as e:
+        return HttpResponseBadRequest( "Something went wrong. Blame Greenwood: %s" % e )
 
-    
+
 
 def return_data(request, data_dict):
 
