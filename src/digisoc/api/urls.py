@@ -44,7 +44,6 @@ urlpatterns = patterns('',
     #
     # usage:
     #
-    #  /crimes/?ne=X.XXXXXXX&sw=Y.YYYYYYY&from=AAAAAAAA&to=BBBBBBBBBBB
 
     (r'crimes/$', crimes),
 )
