@@ -2,6 +2,7 @@
 from django.http import HttpResponse, HttpResponseBadRequest
 
 import json
+import crime_methods
 
 def crimes(request):
 
@@ -19,27 +20,21 @@ def crimes(request):
 
     #
     # Grab params
-    ne_p = params['ne']
-    sw_p = params['sw']
+    ne = params['ne']
+    sw = params['sw']
+    startYear = params['sy']
+    startMonth = params['sm']
+    endYear = params['ey']
+    endMonth = params['em']
+    
     try:
-        ne = float(ne_p.strip())
-        sw = float(sw_p.strip())
+        crimeList = crime_methods.retrieveCrimes(ne, sw, startYear, startMonth, endYear, endMonth)
+        crime_data = {'crimes': crimeList}
+    	return return_data(request, crime_data)
     except Exception:
-        return HttpResponseBadRequest("failed to parse params: %s, %s" % (ne_p, sw_p))
+        return HttpResponseBadRequest( "Something went wrong. Blame Greenwood." )
 
-
-    #
-    # NEED TO DEAL WITH DATES AS WELL...
-    #
-    # Here's the magic, needs completing:
-    #try:
-    #    crime_data = ""
-    #    return HttpResponse( crime_data )
-    #except Exception:
-    #    return HttpResponseBadRequest( "Something went wrong. Blame Greenwood." )
-
-    crime_data = {'crimes': [{'crime': {'point': {'lat': 51.482, 'lng': -3.186}, 'value': 4}}, {'crime': {'point': {'lat': 51.382, 'lng': -3.176}, 'value': 2}}, {'crime': {'point': {'lat': 51.282, 'lng': -3.146}, 'value': 6}}]}
-    return return_data(request, crime_data)
+    
 
 def return_data(request, data_dict):
 
