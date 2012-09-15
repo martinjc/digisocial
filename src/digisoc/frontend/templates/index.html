@@ -6,6 +6,7 @@
             <meta charset="utf-8">
             <title>{% block title %}DigiSocial Mapping Thing{% endblock %}</title>
             <meta name="description" content="Mapping all of the data whether it's relevant or not">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <meta name="author" content="Martin Chorley">
             <meta name="author" content="Will Webberley">
             <meta name="author" content="Matt Williams">
@@ -33,18 +34,58 @@
 
     <body>
 
-        <header>
-        </header>
-        {{root_url}}
-
-
-        <footer>
-
-            <div class="container-fluid">
-                <small class="row-fluid">
-                    <p class="span4 offset4" style="text-align:center"><a href="#modal-about" data-toggle="modal">About</a>  *  <a href="#modal-privacy" data-toggle="modal">Privacy Policy</a>  *  <a href="#modal-contact" data-toggle="modal">Contact</a>  *  <a href="#modal-cookies" data-toggle="modal">Cookie Policy</a></p>
-                </small>
+        <header class="container-fluid">
+            <div class="row-fluid">
+                <h1 class="well well-large">
+                    Mapping!
+                </h1>
             </div>
+        </header>
+
+        <article class="container-fluid">
+            <div class="row-fluid">
+                <div id="map-holder" class="span8" style="position: relative; height: 700px;">
+                    <div id="map-canvas" style="height: 700px;"></div>
+                    <div class="overlay standard" style="background: #fff url({{STATIC_URL}}img/ajax-loader.gif) no-repeat 50% 50%;"></div>
+                </div>
+                <div class="span4 well well-large" id="datasets">
+                    <div id="error-msg">
+                    </div>
+                    <form name="choose_data">
+                        <div class="control-group" id="from-date-group">
+                            <label class="control-label" for="from_date">Start Date:</label>
+                            <input type="date" id="from_date" name="from_date" />
+                        </div>
+                        <div class="control-group" id="to-date-group">
+                            <label class="control-label" for="to_date">End Date:</label>
+                            <input type="date" id="to_date" name="to_date" />
+                        </div>
+                        <label class="checkbox">
+                            <input type="checkbox" />Dataset 1
+                        </label>
+                        <span class="help-block">Some information about what dataset 1 contains and that sort of thing</span>
+                        <label class="checkbox">
+                            <input type="checkbox" />Dataset 2
+                        </label>
+                        <span class="help-block">Some information about what dataset 2 contains and that sort of thing</span>
+                        <label class="checkbox">
+                            <input type="checkbox" />Dataset 3
+                        </label>
+                        <span class="help-block">Some information about what dataset 3 contains and that sort of thing</span>
+                        <label class="checkbox">
+                            <input type="checkbox" />Dataset 4
+                        </label>
+                        <span class="help-block">Some information about what dataset 4 contains and that sort of thing</span>
+                        <button class="btn btn-large btn-block btn-primary" type="button" onclick="validate(this);">Show me the data!</button>
+                    </form>
+                </div>
+            </div>
+        </article>
+
+        <footer class="container-fluid">
+            <small class="row-fluid">
+                <p style="text-align:center; padding-top: 30px;"><a href="#modal-about" data-toggle="modal">About</a></p>
+            </small>
         </footer>
 
 
@@ -63,6 +104,9 @@
             var static_url = '{{STATIC_URL|escapejs}}';
         </script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+        <script src="http://maps.googleapis.com/maps/api/js?sensor=true"></script>
+        <script src="{{STATIC_URL}}js/bootstrap-min.js"></script>
+        <script src="{{STATIC_URL}}js/data-min.js"></script>
     </body>
 
 </html>
