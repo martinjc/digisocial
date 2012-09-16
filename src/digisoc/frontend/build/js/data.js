@@ -24,6 +24,7 @@ function clear_map() {
         food_markers[i].setMap(null);
     }
     food_markers = [];
+    $('#details').addClass('hidden');
 }
 
 function get_outcome_data(start_date_val, end_date_val) {
@@ -89,6 +90,7 @@ function get_food_data() {
             var lat = roundNumber(establishments[i].Latitude, 5);
             var lng = roundNumber(establishments[i].Longitude, 5);
             var severity = parseInt(establishments[i].RatingValue);
+            var name = establishments[i].BusinessName;
             var image = new google.maps.MarkerImage(
                 static_url + "img/" + severity + ".png",
                 new google.maps.Size(32, 32),
@@ -99,10 +101,23 @@ function get_food_data() {
             var marker = new google.maps.Marker({
                 position: new google.maps.LatLng(lat, lng),
                 map: map,
-                title: establishments[i].BusinessName,
+                title: name,
                 icon: image
             });
             food_markers.push(marker);
+            google.maps.event.addListener(marker, 'click', function() {
+                $('#details').removeClass('hidden');
+                $('#venue-name').html(name);
+                $('#food-rating').html(severity);
+                var crimes_url = root_url + '/api/crimeInArea/?lat=' + lat + '&lon=' + lng;
+                $.getJSON(crimes_url, {}, function(data) {
+                    $('crime-numbers').html(data);
+                });
+                var crime_intensity_url = root_url + '/api/crimeIntensity/?lat=' + lat + '&lon=' + lng;
+                $.getJSON(crime_intensity_url, {}, function(data) {
+                    $('crime-numbers').html(data);
+                });
+            });
         }
         $('.overlay').addClass('hidden');
     });
