@@ -46,7 +46,7 @@
             <div class="row-fluid">
                 <div id="map-holder" class="span8" style="position: relative; height: 700px;">
                     <div id="map-canvas" style="height: 700px;"></div>
-                    <div class="overlay standard" style="background: #fff url({{STATIC_URL}}img/ajax-loader.gif) no-repeat 50% 50%;"></div>
+                    <div class="overlay" style="background: #fff url({{STATIC_URL}}img/ajax-loader.gif) no-repeat 50% 50%; position: absolute; top: 0; width: 100%; height: 100%; background-color: #fff; opacity: 0.7; z-index: 1;"></div>
                 </div>
                 <div class="span4 well well-large" id="datasets">
                     <div id="error-msg">
@@ -61,21 +61,17 @@
                             <input type="date" id="to_date" name="to_date" />
                         </div>
                         <label class="checkbox">
-                            <input type="checkbox" />Dataset 1
+                            <input type="checkbox" id="crime-data"/>Crimes Data
                         </label>
-                        <span class="help-block">Some information about what dataset 1 contains and that sort of thing</span>
+                        <span class="help-block">Number of crimes reported in the area</span>
                         <label class="checkbox">
-                            <input type="checkbox" />Dataset 2
+                            <input type="checkbox" id="outcome-data"/>Crime Outcome Data
                         </label>
-                        <span class="help-block">Some information about what dataset 2 contains and that sort of thing</span>
+                        <span class="help-block">Reported crime outcomes in the area</span>
                         <label class="checkbox">
-                            <input type="checkbox" />Dataset 3
+                            <input type="checkbox" id="food-data"/>Food Standards Data
                         </label>
-                        <span class="help-block">Some information about what dataset 3 contains and that sort of thing</span>
-                        <label class="checkbox">
-                            <input type="checkbox" />Dataset 4
-                        </label>
-                        <span class="help-block">Some information about what dataset 4 contains and that sort of thing</span>
+                        <span class="help-block">Food ratings in the area</span>
                         <button class="btn btn-large btn-block btn-primary" type="button" onclick="validate(this);">Show me the data!</button>
                     </form>
                 </div>

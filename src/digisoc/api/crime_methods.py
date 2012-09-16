@@ -19,7 +19,6 @@ def getCrimes(northest, eastest, southest, westest, startYear, startMonth, endYe
 	con.close()
 
 	crimeList = []
-	print len(crimes)
 	for crime in crimes:
 		crimeDict = {"crime":{
 						"point":{
@@ -34,7 +33,6 @@ def getCrimes(northest, eastest, southest, westest, startYear, startMonth, endYe
 						"type": crime[8],
 						"reported_by": crime[2]
 					}}
-		print crimeDict
 		crimeList.append(crimeDict)
 	return crimeList
 
