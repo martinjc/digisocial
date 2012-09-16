@@ -38,7 +38,6 @@ function get_outcome_data(start_date_val, end_date_val) {
     var ne = bounds.getNorthEast();
     var sw = bounds.getSouthWest();
     var url = root_url + '/api/outcomes/?ne=' + ne.lat() + ',' + ne.lng() + '&sw=' + sw.lat() + ',' + sw.lng() + '&sy=' + sy + '&sm=' + sm + '&ey=' + ey + '&em=' + em;
-    console.log(url);
     var map_data = [];
     $.getJSON(url, {}, function(data) {
         var outcomes = data.outcomes;
@@ -78,12 +77,29 @@ function get_outcome_data(start_date_val, end_date_val) {
     });
 }
 
+function add_marker_click(marker, lat, lng, name, severity) {
+    google.maps.event.addListener(marker, 'click', function() {
+        $('#details').removeClass('hidden');
+        $('#venue-name').html(name);
+        $('#food-rating').html(severity);
+        var crimes_url = root_url + '/api/crimeInArea/?lat=' + lat + '&lon=' + lng;
+        $.getJSON(crimes_url, {}, function(data) {
+            var crime_numbers = data.num_crimes;
+            $('#crime-numbers').html(crime_numbers);
+        });
+        var crime_intensity_url = root_url + '/api/crimeIntensity/?lat=' + lat + '&lon=' + lng;
+        $.getJSON(crime_intensity_url, {}, function(data) {
+            var crime_intensity = data.crime_intensity;
+            $('#crime-intensity').html(crime_intensity);
+        });
+    });
+}
+
 function get_food_data() {
     var bounds = map.getBounds();
     var ne = bounds.getNorthEast();
     var sw = bounds.getSouthWest();
     var url = root_url + '/api/food/?ne=' + ne.lat() + ',' + ne.lng() + '&sw=' + sw.lat() + ',' + sw.lng();
-    console.log(url);
     $.getJSON(url, {}, function(data) {
         var establishments = data.establishments;
         for(var i in establishments){
@@ -104,20 +120,8 @@ function get_food_data() {
                 title: name,
                 icon: image
             });
+            add_marker_click(marker, lat, lng, name, severity);
             food_markers.push(marker);
-            google.maps.event.addListener(marker, 'click', function() {
-                $('#details').removeClass('hidden');
-                $('#venue-name').html(name);
-                $('#food-rating').html(severity);
-                var crimes_url = root_url + '/api/crimeInArea/?lat=' + lat + '&lon=' + lng;
-                $.getJSON(crimes_url, {}, function(data) {
-                    $('crime-numbers').html(data);
-                });
-                var crime_intensity_url = root_url + '/api/crimeIntensity/?lat=' + lat + '&lon=' + lng;
-                $.getJSON(crime_intensity_url, {}, function(data) {
-                    $('crime-numbers').html(data);
-                });
-            });
         }
         $('.overlay').addClass('hidden');
     });
@@ -134,7 +138,6 @@ function get_crime_data(start_date_val, end_date_val) {
     var ne = bounds.getNorthEast();
     var sw = bounds.getSouthWest();
     var url = root_url + '/api/crimes/?ne=' + ne.lat() + ',' + ne.lng() + '&sw=' + sw.lat() + ',' + sw.lng() + '&sy=' + sy + '&sm=' + sm + '&ey=' + ey + '&em=' + em;
-    console.log(url);
     var map_data = [];
     $.getJSON(url, {}, function(data) {
         var crimes = data.crimes;
@@ -189,15 +192,12 @@ function validate(document) {
     else {
         // decide which data to show
         if($('#crime-data').attr('checked')) {
-            console.log('crime-data checked');
             get_crime_data(start_date_val, end_date_val);
         }
         if($('#outcome-data').attr('checked')) {
-            console.log('outcome-data checked');
             get_outcome_data(start_date_val, end_date_val);
         }
         if($('#food-data').attr('checked')) {
-            console.log('food-data checked');
             get_food_data();
         }
 
