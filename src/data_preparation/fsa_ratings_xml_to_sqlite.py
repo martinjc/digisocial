@@ -11,6 +11,7 @@ from xml.dom.minidom import parse, parseString
 import csv 
 import sqlalchemy as alch
 import sqlalchemy.orm        
+import sqlalchemy.exc
 import copy
         
 def xml_to_dict( node, out_dict=None ):
@@ -38,7 +39,7 @@ if __name__ == '__main__':
     
     #
     # Params
-    in_fpath = './FHRS556en-GB.xml'
+    in_fpath = './13.xml'
     out_fpath = 'fsa_food_ratings.db'
 
     #
@@ -68,7 +69,7 @@ if __name__ == '__main__':
         
         establishments.append( d )
     
-    print len(establishments)
+    num_estabs = len(establishments)
     
     #
     # DB
@@ -83,7 +84,7 @@ if __name__ == '__main__':
     print fieldnames
     tab_cols = []
     for fieldname in fieldnames: 
-        if fieldname == 'LocalAuthorityBusinessID':
+        if fieldname in ('LocalAuthorityBusinessID', 'LocalAuthorityCode'):
             col = alch.Column(fieldname, alch.String(), primary_key=True )
         else:
             if fieldname in [ 'Longitude', 'Latitude' ]:
@@ -108,11 +109,22 @@ if __name__ == '__main__':
     sqlalchemy.orm.mapper( Establishment, estab_table )
     session = sqlalchemy.orm.sessionmaker( engine )()
     
+    num_collisions = 0
+    
     for estab_d in establishments:
         obj = Establishment( **estab_d )
-        session.add( obj )
+        
+        db_obj = session.query(Establishment).get((obj.LocalAuthorityBusinessID,obj.LocalAuthorityCode))
+        if db_obj is None:
+            session.add( obj )
+        else:
+            num_collisions += 1
     
-    session.commit()
+	session.commit()
+    
+    print "SUCCESS"
+    print "num_estabs", num_estabs
+    print "num collisions:", num_collisions
     
     
     
