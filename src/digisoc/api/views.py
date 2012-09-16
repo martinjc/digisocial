@@ -96,7 +96,56 @@ def crime_stats(request):
     	return return_data(request, imprisoned_data)
     except Exception as e:
         return HttpResponseBadRequest( "Something went wrong. Blame Greenwood: %s" % e )
+    
+def crimesInArea(request):
+	#
+    # Prelim
+    if request.method != 'GET':
+        return HttpResponseBadRequest("GET calls only")
 
+    params = request.GET
+
+    req_params = ["ne", "sw"]
+    for req_param in req_params:
+        if req_param not in params:
+            return HttpResponseBadRequest("missing param: %s" %(req_param))
+
+    #
+    # Grab params
+    lat = params['lat']
+    lon = params['lon']
+
+    try:
+        numCrimes = crime_methods.getNumCrimesInArea(lat, lon)
+        localCrime_data = {'num_crimes': numCrimes}
+    	return return_data(request, localCrime_data)
+    except Exception as e:
+        return HttpResponseBadRequest( "Something went wrong. Blame Greenwood: %s" % e )
+        
+def crimeIntensityInArea(request):
+	#
+    # Prelim
+    if request.method != 'GET':
+        return HttpResponseBadRequest("GET calls only")
+
+    params = request.GET
+
+    req_params = ["ne", "sw"]
+    for req_param in req_params:
+        if req_param not in params:
+            return HttpResponseBadRequest("missing param: %s" %(req_param))
+
+    #
+    # Grab params
+    lat = params['lat']
+    lon = params['lon']
+
+    try:
+        crimeIntensity = crime_methods.getCrimeSeverityInArea(lat, lon)
+        localCrime_data = {'crime_intensity': crimeIntensity}
+    	return return_data(request, localCrime_data)
+    except Exception as e:
+        return HttpResponseBadRequest( "Something went wrong. Blame Greenwood: %s" % e )
 
 def food_ratings(request):
     #
