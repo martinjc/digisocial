@@ -16,8 +16,23 @@ def prepareTables(c):
 											latitude REAL,
 											longitude REAL,
 											location VARCHAR,
-											crime_type VARCHAR)""")
+											crime_type VARCHAR,
+											crime_severity INT)""")
 	
+
+def getCrimeSeverity(crime):
+	severities = {"Burglary":6,
+				  "Anti-social behaviour":4,
+				  "Robbery":7,
+				  "Vehicle crime":8,
+				  "Violent crime":10,
+				  "Other crime":5,
+				  "Public disorder and weapons":10,
+				  "Shoplifting":6,
+				  "Criminal damage and arson":9,
+				  "Other theft":6,
+				  "Drugs":6}
+	return severities[crime]
 
 def processFile(fileName, c):
 	csvFile = open(rootDir+file, "r")
@@ -36,7 +51,8 @@ def processFile(fileName, c):
 					coords = (-1, -1)
 				latitude = coords[0]
 				longitude = coords[1]
-				c.execute("INSERT INTO crimes VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)",#%d, %d, %s, %d, %d, %f, %f, %s, %s)", 
+				severity = getCrimeSeverity(row[6])
+				c.execute("INSERT INTO crimes VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
 																		(year, 
 																		month, 
 																		row[1],
@@ -45,7 +61,8 @@ def processFile(fileName, c):
 																		latitude,
 																		longitude,
 																		location,
-																		row[6]))
+																		row[6],
+																		severity))
 			if row[0] == "":
 				csvFile.close()
 				return

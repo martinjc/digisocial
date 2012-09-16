@@ -31,6 +31,7 @@ def getCrimes(northest, eastest, southest, westest, startYear, startMonth, endYe
 						},
 						"place_name": crime[7],
 						"type": crime[8],
+						"severity": crime[9],
 						"reported_by": crime[2]
 					}}
 		crimeList.append(crimeDict)
