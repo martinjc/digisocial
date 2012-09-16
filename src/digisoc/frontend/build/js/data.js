@@ -3,6 +3,7 @@
 var map;
 
 var heatmaps = [];
+var food_markers = [];
 
 function roundNumber(rnum, rlength) {
     var newnumber = Math.round(rnum * Math.pow(10, rlength)) / Math.pow(10, rlength);
@@ -19,6 +20,10 @@ function clear_map() {
         heatmaps[i].setMap(null);
     }
     heatmaps = [];
+    for(var i in food_markers) {
+        food_markers[i].setMap(null);
+    }
+    food_markers = [];
 }
 
 function get_outcome_data(start_date_val, end_date_val) {
@@ -63,7 +68,7 @@ function get_outcome_data(start_date_val, end_date_val) {
           'rgba(127, 0, 63, 1)',
           'rgba(191, 0, 31, 1)',
           'rgba(255, 0, 0, 1)'
-        ]
+        ];
         heatmap.setOptions({
           gradient: heatmap.get('gradient') ? null : gradient
         });
@@ -78,23 +83,27 @@ function get_food_data() {
     var sw = bounds.getSouthWest();
     var url = root_url + '/api/food/?ne=' + ne.lat() + ',' + ne.lng() + '&sw=' + sw.lat() + ',' + sw.lng();
     console.log(url);
-    var map_data = [];
     $.getJSON(url, {}, function(data) {
         var establishments = data.establishments;
         for(var i in establishments){
             var lat = roundNumber(establishments[i].Latitude, 5);
             var lng = roundNumber(establishments[i].Longitude, 5);
-            map_data.push({location: new google.maps.LatLng(lat, lng), weight: parseInt(establishments[i].RatingValue)});
+            var severity = parseInt(establishments[i].RatingValue);
+            var image = new google.maps.MarkerImage(
+                static_url + "/img/" + severity + ".png",
+                new google.maps.Size(32, 32),
+                new google.maps.Point(0, 0),
+                new google.maps.Point(16, 32),
+                new google.maps.Size(24,24)
+            );
+            var marker = new google.maps.Marker({
+                position: new google.maps.LatLng(lat, lng),
+                map: map,
+                title: establishments[i].BusinessName,
+                icon: image
+            });
+            food_markers.push(marker);
         }
-        var pointArray = new google.maps.MVCArray(map_data);
-        var gradient = ['rgba(248,255,232,1)', 'rgba(227,245,171,1)', 'rgba(183,223,45,1)'];
-        var heatmap = new google.maps.visualization.HeatmapLayer({
-            data:pointArray,
-            opts:{"radius":15, "visible":true, "opacity":60, "gradient": gradient}
-
-        });
-        heatmap.setMap(map);
-        heatmaps.push(heatmap);
         $('.overlay').addClass('hidden');
     });
 }
