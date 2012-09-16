@@ -16,7 +16,29 @@ def prepareTables(c):
 											latitude REAL,
 											longitude REAL,
 											location VARCHAR,
-											outcome_type VARCHAR)""")
+											outcome_type VARCHAR,
+											outcome_severity INT)""")
+
+def getOutcomeSeverity(outcome):
+	severities = {"Offender imprisoned":10,
+				 "Offender given community penalty":6,
+				 "Offender fined":8,
+				 "Offender given conditional discharge":4,
+				 "Offender otherwise dealt with":3,
+				 "Suspect found not guilty":0,
+				 "Offender given suspended prison sentence":9,
+				 "Court case unable to proceed":4,
+				 "Offender given absolute discharge":2,
+				 "Offender required to pay compensation":6,
+				 "Offender deprived of property":5,
+				 "Suspect sent to Crown Court":8,
+				 "No further action at this time":3,
+				 "Suspect charged":4,
+				 "Offender given a caution":2,
+				 "Local resolution":2,
+				 "Offender given penalty notice":4,
+				 "Offender sentenced as part of another case":2}
+	return severities[outcome]
 	
 
 def processFile(fileName, c):
@@ -36,7 +58,8 @@ def processFile(fileName, c):
 					coords = (-1, -1)
 				latitude = coords[0]
 				longitude = coords[1]
-				c.execute("INSERT INTO outcomes VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)",#%d, %d, %s, %d, %d, %f, %f, %s, %s)", 
+				severity = getOutcomeSeverity(row[6])
+				c.execute("INSERT INTO outcomes VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
 																		(year, 
 																		month, 
 																		row[1],
@@ -45,7 +68,8 @@ def processFile(fileName, c):
 																		latitude,
 																		longitude,
 																		location,
-																		row[6]))
+																		row[6],
+																		severity))
 			if row[0] == "":
 				csvFile.close()
 				return

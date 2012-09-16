@@ -46,4 +46,6 @@ urlpatterns = patterns('',
     #
 
     (r'crimes/$', crimes),
+    (r'outcomes/$', outcomes),
+    (r'food/$', food_ratings),
 )

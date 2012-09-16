@@ -29,6 +29,7 @@ def getOutcomes(northest, eastest, southest, westest, startYear, startMonth, end
 						},
 						"place_name": outcome[7],
 						"outcome": outcome[8],
+						"severity": outcome[9],
 						"reported_by": outcome[2]
 					}}
 		outcomeList.append(outcomeDict)
