@@ -5,6 +5,7 @@ import json
 import crime_methods
 import outcome_methods
 import food_methods
+import statistic_methods
 
 def crimes(request):
     #
