@@ -4,8 +4,8 @@ def getCrimes(northest, eastest, southest, westest, startYear, startMonth, endYe
 	con = sqlite3.connect("crime-data.db")
 	c = con.cursor()
 	#crimes = c.execute("""SELECT * FROM crimes""").fetchall()
-	"""
-	crimes = c.execute(SELECT * FROM crimes WHERE
+
+	crimes = c.execute("""SELECT * FROM crimes WHERE
 						year >= ? AND
 						month >= ? AND
 						year <= ? AND
@@ -13,10 +13,9 @@ def getCrimes(northest, eastest, southest, westest, startYear, startMonth, endYe
 						latitude < ? AND
 						longitude < ? AND
 						latitude > ? AND
-						longitude > ?,
+						longitude > ?""",
 						(startYear, startMonth, endYear, endMonth,
 						northest, eastest, southest, westest)).fetchall()
-	"""
 	con.close()
 
 	crimeList = []

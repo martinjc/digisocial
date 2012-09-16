@@ -32,7 +32,6 @@ def crimes(request):
     try:
         crimeList = crime_methods.retrieveCrimes(ne, sw, startYear, startMonth, endYear, endMonth)
         crime_data = {'crimes': crimeList}
-        print crime_data
     	return return_data(request, crime_data)
     except Exception as e:
         return HttpResponseBadRequest( "Something went wrong. Blame Greenwood: %s" % e )

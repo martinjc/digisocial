@@ -52,30 +52,22 @@ function validate(document) {
         var ne = bounds.getNorthEast();
         var sw = bounds.getSouthWest();
         console.log(map.getBounds());
-        var points = {};
-        var hmap_data = {};
         var url = root_url + '/api/crimes/?ne=' + ne.lat() + ',' + ne.lng() + '&sw=' + sw.lat() + ',' + sw.lng() + '&sy=' + sy + '&sm=' + sm + '&ey=' + ey + '&em=' + em;
         console.log(url);
+        var map_data = [];
         $.getJSON(url, {}, function(data) {
             var crimes = data.crimes;
             for(var i in crimes){
                 var lat = roundNumber(crimes[i].crime.point.lat, 5);
                 var lng = roundNumber(crimes[i].crime.point.lng, 5);
-                var point = lat + ',' + lng;
-                if (points[point] === undefined) {
-                    points[point] = 1;
-                } else {
-                    points[point] = points[point] + 1;
-                }
+                map_data.push(new google.maps.LatLng(lat, lng));
             }
-            console.log(points);
-            for(var i in crimes) {
-                var lat = roundNumber(crimes[i].crime.point.lat, 5);
-                var lng = roundNumber(crimes[i].crime.point.lng, 5);
-                var p = lat + ',' + lng;
-                var count = points[p];
-                heatmap.addDataPoint(lat, lng, count);
-            }
+            var pointArray = new google.maps.MVCArray(map_data);
+            console.log(pointArray);
+            heatmap = new google.maps.visualization.HeatmapLayer({
+                data:pointArray
+            });
+            heatmap.setMap(map);
         });
     }
 }
@@ -101,17 +93,13 @@ function DataMap(map_location) {
 
     map.setCenter(initial_location);
 
-    heatmap = new HeatmapOverlay(map, {"radius":1, "visible":true, "opacity":60});
-    var testData={max: 6, data: [{lat: 51.466, lng:-3.18383, count: 4},{lat: 51.479, lng:-3.15653, count: 6},{lat: 51.482, lng:-3.16588, count: 1}]};
+    heatmap = new HeatmapOverlay(map, {"radius":15, "visible":true, "opacity":60});
 
-    google.maps.event.addListener(map, "idle", function(){
-        heatmap.setDataSet(testData);
-    });
 }
 
 
 $(document).ready(function(){
 
-    var map = new DataMap(document.getElementById("map-canvas"));
+    var data_map = new DataMap(document.getElementById("map-canvas"));
 
 });
