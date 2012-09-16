@@ -55,14 +55,14 @@
                     <form name="choose_data">
                         <div class="control-group" id="from-date-group">
                             <label class="control-label" for="from_date">Start Date:</label>
-                            <input type="date" id="from_date" name="from_date" />
+                            <input type="date" id="from_date" name="from_date" value="2012-01-01"/>
                         </div>
                         <div class="control-group" id="to-date-group">
                             <label class="control-label" for="to_date">End Date:</label>
-                            <input type="date" id="to_date" name="to_date" />
+                            <input type="date" id="to_date" name="to_date" value="2012-09-30"/>
                         </div>
                         <label class="checkbox">
-                            <input type="checkbox" id="crime-data"/>Crimes Data
+                            <input type="checkbox" id="crime-data" checked="checked"/>Crimes Data
                         </label>
                         <span class="help-block">Severity of crimes reported in the area</span>
                         <label class="checkbox">
@@ -80,8 +80,8 @@
                     <h1>Venue details:</h1>
                     <p><strong>Venue Name:</strong> <span id="venue-name"></span></p>
                     <p><strong>Food Standards Rating:</strong> <span id="food-rating"></span></p>
-                    <p><strong>Crime Intensity:</strong> <span id="crime-intensity"></span></p>
-                    <p><strong>Crime Numbers:</strong> <span id="crime-numbers"></span></p>
+                    <p><strong>Crime severity in area:</strong> <span id="crime-intensity"></span></p>
+                    <p><strong>Number of crimes in area:</strong> <span id="crime-numbers"></span></p>
                 </div>
             </div>
         </article>
