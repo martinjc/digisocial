@@ -44,7 +44,7 @@ function get_outcome_data(start_date_val, end_date_val) {
         for(var i in outcomes){
             var lat = roundNumber(outcomes[i].outcome.point.lat, 5);
             var lng = roundNumber(outcomes[i].outcome.point.lng, 5);
-            map_data.push(new google.maps.LatLng(lat, lng));
+            map_data.push({location: new google.maps.LatLng(lat, lng), weight: outcomes[i].outcome.severity});
         }
         var pointArray = new google.maps.MVCArray(map_data);
         var heatmap = new google.maps.visualization.HeatmapLayer({
@@ -90,7 +90,7 @@ function get_food_data() {
             var lng = roundNumber(establishments[i].Longitude, 5);
             var severity = parseInt(establishments[i].RatingValue);
             var image = new google.maps.MarkerImage(
-                static_url + "/img/" + severity + ".png",
+                static_url + "img/" + severity + ".png",
                 new google.maps.Size(32, 32),
                 new google.maps.Point(0, 0),
                 new google.maps.Point(16, 32),
@@ -126,7 +126,7 @@ function get_crime_data(start_date_val, end_date_val) {
         for(var i in crimes){
             var lat = roundNumber(crimes[i].crime.point.lat, 5);
             var lng = roundNumber(crimes[i].crime.point.lng, 5);
-            map_data.push(new google.maps.LatLng(lat, lng));
+            map_data.push({location: new google.maps.LatLng(lat, lng), weight: crimes[i].crime.severity});
         }
         var pointArray = new google.maps.MVCArray(map_data);
         var heatmap = new google.maps.visualization.HeatmapLayer({
