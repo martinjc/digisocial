@@ -39,7 +39,7 @@ if __name__ == '__main__':
     
     #
     # Params
-    in_fpath = './13.xml'
+    in_fpath = './cardiff.xml'
     out_fpath = 'fsa_food_ratings.db'
 
     #
