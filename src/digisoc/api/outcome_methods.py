@@ -1,8 +1,7 @@
 import sqlite3
-import settings 
 
 def getOutcomes(northest, eastest, southest, westest, startYear, startMonth, endYear, endMonth):
-	con = sqlite3.connect(settings.PROJ_PATH+"outcome-data.db")
+	con = sqlite3.connect("outcome-data.db")
 	c = con.cursor()
 	outcomes = c.execute("""SELECT * FROM outcomes WHERE 
 						year >= ? AND
@@ -30,6 +29,7 @@ def getOutcomes(northest, eastest, southest, westest, startYear, startMonth, end
 						},
 						"place_name": outcome[7],
 						"outcome": outcome[8],
+						"severity": outcome[9],
 						"reported_by": outcome[2]
 					}}
 		outcomeList.append(outcomeDict)
