@@ -59,7 +59,7 @@ def processFile(fileName, c):
 				latitude = coords[0]
 				longitude = coords[1]
 				severity = getOutcomeSeverity(row[6])
-				c.execute("INSERT INTO outcomes VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",#%d, %d, %s, %d, %d, %f, %f, %s, %s)", 
+				c.execute("INSERT INTO outcomes VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
 																		(year, 
 																		month, 
 																		row[1],
