@@ -67,7 +67,7 @@ def outcomes(request):
     except Exception as e:
         return HttpResponseBadRequest( "Something went wrong. Blame Greenwood: %s" % e )
 
-# Returns string value for percentage of imprisoned crime cases within the view window      
+# Returns string value for percentage of imprisoned crime cases within the view window
 def crime_stats(request):
     #
     # Prelim
@@ -98,7 +98,7 @@ def crime_stats(request):
     except Exception as e:
         return HttpResponseBadRequest( "Something went wrong. Blame Greenwood: %s" % e )
 
-# Returns integer value for total number of crimes within 0.25km of provided lat and lon    
+# Returns integer value for total number of crimes within 0.25km of provided lat and lon
 def crimesInArea(request):
 	#
     # Prelim
@@ -107,7 +107,7 @@ def crimesInArea(request):
 
     params = request.GET
 
-    req_params = ["ne", "sw"]
+    req_params = ["lat", "lon"]
     for req_param in req_params:
         if req_param not in params:
             return HttpResponseBadRequest("missing param: %s" %(req_param))
@@ -123,7 +123,7 @@ def crimesInArea(request):
     	return return_data(request, localCrime_data)
     except Exception as e:
         return HttpResponseBadRequest( "Something went wrong. Blame Greenwood: %s" % e )
-        
+
 # Returns integer value for average crime intensity within 0.25km of provided lat and lon
 def crimeIntensityInArea(request):
 	#
@@ -133,7 +133,7 @@ def crimeIntensityInArea(request):
 
     params = request.GET
 
-    req_params = ["ne", "sw"]
+    req_params = ["lat", "lon"]
     for req_param in req_params:
         if req_param not in params:
             return HttpResponseBadRequest("missing param: %s" %(req_param))

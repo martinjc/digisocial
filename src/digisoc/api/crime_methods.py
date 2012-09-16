@@ -65,14 +65,14 @@ def retrieveCrimes(ne, sw, sy, sm, ey, em):
 					endYear,
 					endMonth)
 	return crimes
-	
+
 def getCrimeSeverityInArea(latitude, longitude):
 	con = sqlite3.connect("crime-data.db")
 	c = con.cursor()
 	result = c.execute("""SELECT * FROM (
-								SELECT 
+								SELECT
 								crime_severity,
-								(((latitude - ?) * (latitude - ?)) + (longitude - (?)) * (longitude - (?))) * (110 * 110) AS dist 
+								(((latitude - ?) * (latitude - ?)) + (longitude - (?)) * (longitude - (?))) * (110 * 110) AS dist
 								FROM crimes
 							)
 							AS tab WHERE tab.dist <= (0.25 * 0.25)""",
@@ -83,16 +83,16 @@ def getCrimeSeverityInArea(latitude, longitude):
 	for crime in result:
 		numCrimes += 1
 		totalSeverity += crime[0]
-	
-	return math.ceil(totalSeverity / numCrimes)	
-	
+
+	return math.ceil(totalSeverity / numCrimes)
+
 def getNumCrimesInArea(latitude, longitude):
 	con = sqlite3.connect("crime-data.db")
 	c = con.cursor()
 	result = c.execute("""SELECT * FROM (
-								SELECT 
+								SELECT
 								crime_severity,
-								(((latitude - ?) * (latitude - ?)) + (longitude - (?)) * (longitude - (?))) * (110 * 110) AS dist 
+								(((latitude - ?) * (latitude - ?)) + (longitude - (?)) * (longitude - (?))) * (110 * 110) AS dist
 								FROM crimes
 							)
 							AS tab WHERE tab.dist <= (0.25 * 0.25)""",
@@ -101,5 +101,5 @@ def getNumCrimesInArea(latitude, longitude):
 	totalSeverity = 0
 	numCrimes = 0
 	for crime in result:
-		numCrimes += 1	
+		numCrimes += 1
 	return numCrimes
