@@ -1,7 +1,8 @@
 import sqlite3
+import settings
 
 def get_establishment_ratings(northest, eastest, southest, westest):
-	con = sqlite3.connect("fsa_food_ratings.db")
+	con = sqlite3.connect(settings.PROJ_PATH+"fsa_food_ratings.db")
 	con.row_factory = sqlite3.Row
 
 	establishments = con.execute("""SELECT * FROM establishments WHERE

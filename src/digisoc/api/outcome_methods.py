@@ -1,7 +1,8 @@
 import sqlite3
+import settings
 
 def getOutcomes(northest, eastest, southest, westest, startYear, startMonth, endYear, endMonth):
-	con = sqlite3.connect("outcome-data.db")
+	con = sqlite3.connect(settings.PROJ_PATH+"outcome-data.db")
 	c = con.cursor()
 	outcomes = c.execute("""SELECT * FROM outcomes WHERE 
 						year >= ? AND

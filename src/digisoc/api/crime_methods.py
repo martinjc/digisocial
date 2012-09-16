@@ -1,7 +1,9 @@
 import sqlite3
+import settings
+import math
 
 def getCrimes(northest, eastest, southest, westest, startYear, startMonth, endYear, endMonth):
-	con = sqlite3.connect("crime-data.db")
+	con = sqlite3.connect(settings.PROJ_PATH + "crime-data.db")
 	c = con.cursor()
 	#crimes = c.execute("""SELECT * FROM crimes""").fetchall()
 
