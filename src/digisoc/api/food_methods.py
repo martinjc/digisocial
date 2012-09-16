@@ -1,10 +1,16 @@
 import sqlite3
+import settings
 
 def get_establishment_ratings(northest, eastest, southest, westest):
-	con = sqlite3.connect("fsa_food_ratings.db")
+	con = sqlite3.connect(settings.PROJ_PATH+"fsa_food_ratings.db")
 	con.row_factory = sqlite3.Row
-
-	establishments = con.execute("""SELECT * FROM establishments WHERE
+	
+	print "top:", northest
+	print "left:", eastest
+	print "bottom:", southest
+	print "right:", westest
+	
+	establishments = con.execute("""SELECT * FROM establishments WHERE 
 						Latitude < ? AND
 						Longitude < ? AND
 						Latitude > ? AND
@@ -19,8 +25,8 @@ def retrieve_establishment_ratings(ne, sw):
 	vertical2 = float((sw.split(",")[0]))
 	horizontal1 = float((ne.split(",")[1]))
 	horizontal2 = float((sw.split(",")[1]))
-
-	estabs = get_establishment_ratings(max(vertical1, vertical2),
+	
+	estabs = get_establishment_ratings(max(vertical1, vertical2), 
 					max(horizontal1, horizontal2),
 					min(vertical1, vertical2),
 					min(horizontal1, horizontal2),)
