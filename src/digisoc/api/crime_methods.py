@@ -67,7 +67,7 @@ def retrieveCrimes(ne, sw, sy, sm, ey, em):
 	return crimes
 
 def getCrimeSeverityInArea(latitude, longitude):
-	con = sqlite3.connect("crime-data.db")
+	con = sqlite3.connect(settings.PROJ_PATH+"crime-data.db")
 	c = con.cursor()
 	result = c.execute("""SELECT * FROM (
 								SELECT

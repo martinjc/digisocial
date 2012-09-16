@@ -19,7 +19,7 @@ def getNumCrimes(northest, eastest, southest, westest, startYear, startMonth, en
 	return len(crimes)
 
 def getNumOutcomeType(type, northest, eastest, southest, westest, startYear, startMonth, endYear, endMonth):
-	con = sqlite3.connect("outcome-data.db")
+	con = sqlite3.connect(settings.PROJ_PATH+"outcome-data.db")
 	c = con.cursor()
 	outcomes = c.execute("""SELECT outcome_type FROM outcomes WHERE
 						year >= ? AND
