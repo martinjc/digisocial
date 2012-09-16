@@ -18,7 +18,7 @@ function clear_map() {
     for(var i in heatmaps) {
         heatmaps[i].setMap(null);
     }
-    heatmaps[i] = null;
+    heatmaps = [];
 }
 
 function get_outcome_data(start_date_val, end_date_val) {
@@ -44,10 +44,29 @@ function get_outcome_data(start_date_val, end_date_val) {
         var pointArray = new google.maps.MVCArray(map_data);
         var heatmap = new google.maps.visualization.HeatmapLayer({
             data:pointArray,
-            opts:{"radius":15, "visible":true, "opacity":60}
+            opts:{"radius":30, "visible":true, "opacity":60}
 
         });
         heatmap.setMap(map);
+        var gradient = [
+          'rgba(0, 255, 255, 0)',
+          'rgba(0, 255, 255, 1)',
+          'rgba(0, 191, 255, 1)',
+          'rgba(0, 127, 255, 1)',
+          'rgba(0, 63, 255, 1)',
+          'rgba(0, 0, 255, 1)',
+          'rgba(0, 0, 223, 1)',
+          'rgba(0, 0, 191, 1)',
+          'rgba(0, 0, 159, 1)',
+          'rgba(0, 0, 127, 1)',
+          'rgba(63, 0, 91, 1)',
+          'rgba(127, 0, 63, 1)',
+          'rgba(191, 0, 31, 1)',
+          'rgba(255, 0, 0, 1)'
+        ]
+        heatmap.setOptions({
+          gradient: heatmap.get('gradient') ? null : gradient
+        });
         heatmaps.push(heatmap);
         $('.overlay').addClass('hidden');
     });
@@ -103,7 +122,7 @@ function get_crime_data(start_date_val, end_date_val) {
         var pointArray = new google.maps.MVCArray(map_data);
         var heatmap = new google.maps.visualization.HeatmapLayer({
             data:pointArray,
-            opts:{"radius":15, "visible":true, "opacity":60}
+            opts:{"radius":30, "visible":true, "opacity":60}
         });
         heatmap.setMap(map);
         heatmaps.push(heatmap);
