@@ -87,7 +87,7 @@ def getCrimeSeverityInArea(latitude, longitude):
 	return math.ceil(totalSeverity / numCrimes)
 
 def getNumCrimesInArea(latitude, longitude):
-	con = sqlite3.connect("crime-data.db")
+	con = sqlite3.connect(settings.PROJ_PATH+"crime-data.db")
 	c = con.cursor()
 	result = c.execute("""SELECT * FROM (
 								SELECT
