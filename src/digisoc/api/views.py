@@ -66,7 +66,8 @@ def outcomes(request):
     	return return_data(request, outcome_data)
     except Exception as e:
         return HttpResponseBadRequest( "Something went wrong. Blame Greenwood: %s" % e )
-        
+
+# Returns string value for percentage of imprisoned crime cases within the view window      
 def crime_stats(request):
     #
     # Prelim
@@ -96,7 +97,8 @@ def crime_stats(request):
     	return return_data(request, imprisoned_data)
     except Exception as e:
         return HttpResponseBadRequest( "Something went wrong. Blame Greenwood: %s" % e )
-    
+
+# Returns integer value for total number of crimes within 0.25km of provided lat and lon    
 def crimesInArea(request):
 	#
     # Prelim
@@ -122,6 +124,7 @@ def crimesInArea(request):
     except Exception as e:
         return HttpResponseBadRequest( "Something went wrong. Blame Greenwood: %s" % e )
         
+# Returns integer value for average crime intensity within 0.25km of provided lat and lon
 def crimeIntensityInArea(request):
 	#
     # Prelim
