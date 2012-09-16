@@ -75,7 +75,7 @@ def getCrimeSeverityInArea(latitude, longitude):
 								(((latitude - ?) * (latitude - ?)) + (longitude - (?)) * (longitude - (?))) * (110 * 110) AS dist
 								FROM crimes
 							)
-							AS tab WHERE tab.dist <= (0.25 * 0.25)""",
+							AS tab WHERE tab.dist <= (0.075 * 0.075)""",
 						(latitude, latitude, longitude, longitude)).fetchall()
 	con.close()
 	totalSeverity = 0
@@ -95,7 +95,7 @@ def getNumCrimesInArea(latitude, longitude):
 								(((latitude - ?) * (latitude - ?)) + (longitude - (?)) * (longitude - (?))) * (110 * 110) AS dist
 								FROM crimes
 							)
-							AS tab WHERE tab.dist <= (0.25 * 0.25)""",
+							AS tab WHERE tab.dist <= (0.075 * 0.075)""",
 						(latitude, latitude, longitude, longitude)).fetchall()
 	con.close()
 	totalSeverity = 0
