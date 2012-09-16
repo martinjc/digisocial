@@ -33,7 +33,7 @@ def retrieve_establishment_ratings(ne, sw):
 	
 if __name__ == '__main__':
     
-    # from martin:
+    # from martin
     sw="51.50001163310808,-3.14414930343014"; ne="51.462594692253944,-3.2168478965697886"
     
     # cwmbran to the sea (lat,long)
@@ -41,10 +41,6 @@ if __name__ == '__main__':
     
     # Cardiff's latitude vals should be around 51
     # Cardiff's longitude vals should be around -3.46
-    
-    # Example business:
-    #  'Longitude': 51.503078
-    #  'Latitude': -3.159582
 
     #ne="-10000,-1000"; sw="10000,10000"
     #ne="1000,1000"; sw="1000,1000"
