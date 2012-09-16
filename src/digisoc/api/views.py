@@ -65,6 +65,36 @@ def outcomes(request):
     	return return_data(request, outcome_data)
     except Exception as e:
         return HttpResponseBadRequest( "Something went wrong. Blame Greenwood: %s" % e )
+        
+def crime_stats(request):
+    #
+    # Prelim
+    if request.method != 'GET':
+        return HttpResponseBadRequest("GET calls only")
+
+    params = request.GET
+
+    req_params = ["ne", "sw"]
+    for req_param in req_params:
+        if req_param not in params:
+            return HttpResponseBadRequest("missing param: %s" %(req_param))
+
+    #
+    # Grab params
+    ne = params['ne']
+    sw = params['sw']
+
+    startYear = params.get('sy', None)
+    startMonth = params.get('sm', None)
+    endYear = params.get('ey', None)
+    endMonth = params.get('em', None)
+
+    try:
+        proportionOfImprisonments = statistic_methods.getProportionImprisoned(ne, sw, startYear, startMonth, endYear, endMonth)
+        imprisoned_data = {'proportion_imprisoned': proportionOfImprisonments}
+    	return return_data(request, imprisoned_data)
+    except Exception as e:
+        return HttpResponseBadRequest( "Something went wrong. Blame Greenwood: %s" % e )
 
 
 def food_ratings(request):
